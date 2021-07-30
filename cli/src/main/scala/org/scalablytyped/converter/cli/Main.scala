@@ -44,6 +44,7 @@ object Main {
     enableReactTreeShaking = Selection.None,
     enableLongApplyMethod  = false,
     privateWithin          = None,
+    effectAgnostic         = false,
   )
 
   case class Config(
@@ -166,6 +167,9 @@ object Main {
       opt[Boolean]("enableLongApplyMethod")
         .action((x, c) => c.mapConversion(_.copy(enableLongApplyMethod = x)))
         .text(s"Enables long apply methods, instead of implicit ops builders"),
+      opt[Boolean]("effectAgnostic")
+        .action((x, c) => c.mapConversion(_.copy(effectAgnostic = x)))
+        .text(s"Enables effect-agnoistic scalajs-react code"),
       arg[Seq[TsIdentLibrary]]("libs")
         .text("Libraries you want to convert from node_modules")
         .unbounded()

@@ -1,7 +1,7 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactEventFrom
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalajs.dom.raw.Element
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -87,7 +87,7 @@ object TextareaHTMLAttributes {
     
     inline def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
     
-    inline def setOnChange(value: ReactEventFrom[T & Element] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => value(t0).runNow()))
+    inline def setOnChange[F[_]: Sync](value: ReactEventFrom[T & Element] => F[Unit]): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: ReactEventFrom[T & Element]) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
     

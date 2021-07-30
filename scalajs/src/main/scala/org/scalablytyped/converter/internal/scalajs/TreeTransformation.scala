@@ -194,6 +194,7 @@ class TreeTransformation { self =>
     val updatedChildren =
       s.copy(
         upperBound = s.upperBound.map(visitTypeRef(childrenScope)),
+        typeBound  = s.typeBound.map(visitTypeRef(childrenScope)),
         params     = s.params.map(visitTypeParamTree(childrenScope)),
       )
 

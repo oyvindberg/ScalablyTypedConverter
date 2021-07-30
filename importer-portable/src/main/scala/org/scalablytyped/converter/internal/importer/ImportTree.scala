@@ -527,6 +527,7 @@ class ImportTree(
     TypeParamTree(
       name        = ImportName(tp.name),
       params      = Empty,
+      typeBound   = None,
       upperBound  = tp.upperBound.map(importType(scope / tp, importName)),
       comments    = tp.comments,
       ignoreBound = true,

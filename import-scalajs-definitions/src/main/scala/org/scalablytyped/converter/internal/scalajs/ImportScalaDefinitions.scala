@@ -470,6 +470,7 @@ object ImportScalaDefinitions extends App {
         name        = Name(processName(tp.symbolInfo.name)),
         params      = Empty,
         upperBound  = None,
+        typeBound   = None,
         comments    = NoComments,
         ignoreBound = true,
       )

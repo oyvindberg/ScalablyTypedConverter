@@ -51,6 +51,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stExperimentalEnableImplicitOps = settingKey[Boolean]("implicit ops for most traits")
     val stEnableLongApplyMethod         = settingKey[Boolean]("long apply methods instead of implicit ops builders")
     val stPrivateWithin                 = settingKey[Option[String]]("generate all top-level things private to the given package")
+    val stEffectAgnostic                = settingKey[Boolean]("generate effect-agnostic code for scalajs-react")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -74,6 +75,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stReactEnableTreeShaking := Selection.None,
       stEnableLongApplyMethod := false,
       stPrivateWithin := None,
+      stEffectAgnostic := false,
       stConversionOptions := {
         val versions = Versions(
           Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
@@ -100,6 +102,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
           enableReactTreeShaking = stReactEnableTreeShaking.value.map(name => ImportName(TsIdentLibrary(name))),
           enableLongApplyMethod  = stEnableLongApplyMethod.value,
           privateWithin          = stPrivateWithin.value.map(Name.apply),
+          effectAgnostic         = stEffectAgnostic.value,
         )
       },
     )

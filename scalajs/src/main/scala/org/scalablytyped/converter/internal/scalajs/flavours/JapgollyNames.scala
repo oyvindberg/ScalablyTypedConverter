@@ -20,6 +20,9 @@ object JapgollyNames {
   val ReactUIEventFrom          = QualifiedName("japgolly.scalajs.react.ReactUIEventFrom")
   val ReactWheelEventFrom       = QualifiedName("japgolly.scalajs.react.ReactWheelEventFrom")
 
+  val Dispatch = QualifiedName("japgolly.scalajs.react.util.Effect.Dispatch")
+  val Sync     = QualifiedName("japgolly.scalajs.react.util.Effect.Sync")
+
   object vdom {
     val TagMod       = QualifiedName("japgolly.scalajs.react.vdom.TagMod")
     val TagOf        = QualifiedName("japgolly.scalajs.react.vdom.TagOf")
@@ -28,14 +31,15 @@ object JapgollyNames {
     val Array        = QualifiedName("japgolly.scalajs.react.vdom.VdomArray")
     val VdomNode     = QualifiedName("japgolly.scalajs.react.vdom.VdomNode")
   }
+
   object rawReact {
-    val Element         = QualifiedName("japgolly.scalajs.react.raw.React.Element")
-    val Node            = QualifiedName("japgolly.scalajs.react.raw.React.Node")
-    val RefFn           = QualifiedName("japgolly.scalajs.react.raw.React.RefFn")
-    val RefHandle       = QualifiedName("japgolly.scalajs.react.raw.React.RefHandle")
-    val Component       = QualifiedName("japgolly.scalajs.react.raw.React.Component")
-    val ComponentClassP = QualifiedName("japgolly.scalajs.react.raw.React.ComponentClassP")
-    val DomElement      = QualifiedName("japgolly.scalajs.react.raw.React.DomElement")
-    val ElementType     = QualifiedName("japgolly.scalajs.react.raw.React.ElementType")
+    val Element         = QualifiedName("japgolly.scalajs.react.facade.React.Element")
+    val Node            = QualifiedName("japgolly.scalajs.react.facade.React.Node")
+    val RefFn           = QualifiedName("japgolly.scalajs.react.facade.React.RefFn")
+    val RefHandle       = QualifiedName("japgolly.scalajs.react.facade.React.RefHandle")
+    val Component       = QualifiedName("japgolly.scalajs.react.facade.React.Component")
+    val ComponentClassP = QualifiedName("japgolly.scalajs.react.facade.React.ComponentClassP")
+    val DomElement      = QualifiedName("japgolly.scalajs.react.facade.React.DomElement")
+    val ElementType     = QualifiedName("japgolly.scalajs.react.facade.React.ElementType")
   }
 }

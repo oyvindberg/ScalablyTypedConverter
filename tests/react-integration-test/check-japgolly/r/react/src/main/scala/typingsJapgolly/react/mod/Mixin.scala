@@ -1,6 +1,6 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -47,11 +47,11 @@ object Mixin {
     
     inline def setDisplayNameUndefined: Self = StObject.set(x, "displayName", js.undefined)
     
-    inline def setGetDefaultProps(value: CallbackTo[P]): Self = StObject.set(x, "getDefaultProps", value.toJsFn)
+    inline def setGetDefaultProps[F[_]: Sync](value: F[P]): Self = StObject.set(x, "getDefaultProps", implicitly[Sync[F]].toJsFn(value))
     
     inline def setGetDefaultPropsUndefined: Self = StObject.set(x, "getDefaultProps", js.undefined)
     
-    inline def setGetInitialState(value: CallbackTo[S]): Self = StObject.set(x, "getInitialState", value.toJsFn)
+    inline def setGetInitialState[F[_]: Sync](value: F[S]): Self = StObject.set(x, "getInitialState", implicitly[Sync[F]].toJsFn(value))
     
     inline def setGetInitialStateUndefined: Self = StObject.set(x, "getInitialState", js.undefined)
     

@@ -1,6 +1,6 @@
 package typingsJapgolly.reactNative
 
-import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.util.Effect.Sync
 import typingsJapgolly.reactNative.anon.Changed
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
@@ -21,7 +21,7 @@ object ViewabilityConfigCallbackPair {
   
   extension [Self <: ViewabilityConfigCallbackPair](x: Self) {
     
-    inline def setOnViewableItemsChanged(value: /* info */ Changed => Callback): Self = StObject.set(x, "onViewableItemsChanged", js.Any.fromFunction1((t0: /* info */ Changed) => value(t0).runNow()))
+    inline def setOnViewableItemsChanged[F[_]: Sync](value: /* info */ Changed => F[Unit]): Self = StObject.set(x, "onViewableItemsChanged", js.Any.fromFunction1((t0: /* info */ Changed) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def setOnViewableItemsChangedNull: Self = StObject.set(x, "onViewableItemsChanged", null)
     

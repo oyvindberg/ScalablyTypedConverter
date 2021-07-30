@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.ExprTree._
-import org.scalablytyped.converter.internal.scalajs.transforms.FakeLiterals
 
 case class CreatorMethod(
     params:       IArray[ParamTree],
@@ -69,14 +68,14 @@ object CreatorMethod {
         )
 
       // required literals
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
+      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _, _), _, Optionality.No, _, _)
           if tpe.comments.has[Marker.WasLiteral] =>
         val literal = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
 
         Const(requiredProp(prop, literal))
 
       // required props
-      case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, Optionality.No, _, _) =>
+      case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _, _), _, Optionality.No, _, _) =>
         Provide(
           requiredProp(prop, asExpr(Ref(prop.name))),
           ParamTree(prop.name, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments),
@@ -102,13 +101,13 @@ object CreatorMethod {
           ParamTree(name, isImplicit = false, isVal = false, tpe, default, NoComments),
         )
 
-      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _), _, Optionality.No, _, _)
+      case prop @ Prop.Normal(Prop.Variant(tpe, _, _, _, _), _, Optionality.No, _, _)
           if tpe.comments.has[Marker.WasLiteral] =>
         val lit = tpe.comments.extract { case Marker.WasLiteral(lit) => lit }.get._1
 
         Const(requiredProp(prop, lit))
 
-      case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _), _, optionality, _, _) =>
+      case prop @ Prop.Normal(Prop.Variant(tpe, asExpr, _, _, _), _, optionality, _, _) =>
         optionality match {
           case Optionality.No =>
             Provide(

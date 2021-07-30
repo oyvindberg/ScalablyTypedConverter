@@ -1,6 +1,6 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -112,27 +112,27 @@ object DeprecatedLifecycle {
   
   extension [Self <: DeprecatedLifecycle[?, ?], P, S](x: Self & (DeprecatedLifecycle[P, S])) {
     
-    inline def setComponentWillMount(value: Callback): Self = StObject.set(x, "componentWillMount", value.toJsFn)
+    inline def setComponentWillMount[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "componentWillMount", implicitly[Sync[F]].toJsFn(value))
     
     inline def setComponentWillMountUndefined: Self = StObject.set(x, "componentWillMount", js.undefined)
     
-    inline def setComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self = StObject.set(x, "componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
+    inline def setComponentWillReceiveProps[F[_]: Sync](value: (/* nextProps */ P, /* nextContext */ js.Any) => F[Unit]): Self = StObject.set(x, "componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => implicitly[Sync[F]].runSync(value(t0, t1))))
     
     inline def setComponentWillReceivePropsUndefined: Self = StObject.set(x, "componentWillReceiveProps", js.undefined)
     
-    inline def setComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self = StObject.set(x, "componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    inline def setComponentWillUpdate[F[_]: Sync](value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => F[Unit]): Self = StObject.set(x, "componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => implicitly[Sync[F]].runSync(value(t0, t1, t2))))
     
     inline def setComponentWillUpdateUndefined: Self = StObject.set(x, "componentWillUpdate", js.undefined)
     
-    inline def setUNSAFE_componentWillMount(value: Callback): Self = StObject.set(x, "UNSAFE_componentWillMount", value.toJsFn)
+    inline def setUNSAFE_componentWillMount[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "UNSAFE_componentWillMount", implicitly[Sync[F]].toJsFn(value))
     
     inline def setUNSAFE_componentWillMountUndefined: Self = StObject.set(x, "UNSAFE_componentWillMount", js.undefined)
     
-    inline def setUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
+    inline def setUNSAFE_componentWillReceiveProps[F[_]: Sync](value: (/* nextProps */ P, /* nextContext */ js.Any) => F[Unit]): Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => implicitly[Sync[F]].runSync(value(t0, t1))))
     
     inline def setUNSAFE_componentWillReceivePropsUndefined: Self = StObject.set(x, "UNSAFE_componentWillReceiveProps", js.undefined)
     
-    inline def setUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
+    inline def setUNSAFE_componentWillUpdate[F[_]: Sync](value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => F[Unit]): Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => implicitly[Sync[F]].runSync(value(t0, t1, t2))))
     
     inline def setUNSAFE_componentWillUpdateUndefined: Self = StObject.set(x, "UNSAFE_componentWillUpdate", js.undefined)
   }

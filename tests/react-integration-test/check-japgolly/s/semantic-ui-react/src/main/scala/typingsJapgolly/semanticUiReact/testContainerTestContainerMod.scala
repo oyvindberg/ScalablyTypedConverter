@@ -1,11 +1,10 @@
 package typingsJapgolly.semanticUiReact
 
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
+import japgolly.scalajs.react.util.Effect.Sync
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Shortcut
@@ -72,13 +71,13 @@ object testContainerTestContainerMod extends Shortcut {
   }
   object StrictTestContainerProps {
     
-    inline def apply(
-      requiredFn0Number: CallbackTo[Double],
-      requiredFn0Void: Callback,
+    inline def apply[F[_]: Sync](
+      requiredFn0Number: F[Double],
+      requiredFn0Void: F[Unit],
       requiredFn1Number: Double => Double,
-      requiredFn1Void: Double => Callback
+      requiredFn1Void: Double => F[Unit]
     ): StrictTestContainerProps = {
-      val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+      val __obj = js.Dynamic.literal(requiredFn0Number = implicitly[Sync[F]].toJsFn(requiredFn0Number), requiredFn0Void = implicitly[Sync[F]].toJsFn(requiredFn0Void), requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => implicitly[Sync[F]].runSync(requiredFn1Void(t0))))
       __obj.asInstanceOf[StrictTestContainerProps]
     }
     
@@ -116,11 +115,11 @@ object testContainerTestContainerMod extends Shortcut {
       
       inline def setFluidUndefined: Self = StObject.set(x, "fluid", js.undefined)
       
-      inline def setOptFn0Number(value: CallbackTo[Double]): Self = StObject.set(x, "optFn0Number", value.toJsFn)
+      inline def setOptFn0Number[F[_]: Sync](value: F[Double]): Self = StObject.set(x, "optFn0Number", implicitly[Sync[F]].toJsFn(value))
       
       inline def setOptFn0NumberUndefined: Self = StObject.set(x, "optFn0Number", js.undefined)
       
-      inline def setOptFn0Void(value: Callback): Self = StObject.set(x, "optFn0Void", value.toJsFn)
+      inline def setOptFn0Void[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "optFn0Void", implicitly[Sync[F]].toJsFn(value))
       
       inline def setOptFn0VoidUndefined: Self = StObject.set(x, "optFn0Void", js.undefined)
       
@@ -128,17 +127,17 @@ object testContainerTestContainerMod extends Shortcut {
       
       inline def setOptFn1NumberUndefined: Self = StObject.set(x, "optFn1Number", js.undefined)
       
-      inline def setOptFn1Void(value: /* x */ Double => Callback): Self = StObject.set(x, "optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
+      inline def setOptFn1Void[F[_]: Sync](value: /* x */ Double => F[Unit]): Self = StObject.set(x, "optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOptFn1VoidUndefined: Self = StObject.set(x, "optFn1Void", js.undefined)
       
-      inline def setRequiredFn0Number(value: CallbackTo[Double]): Self = StObject.set(x, "requiredFn0Number", value.toJsFn)
+      inline def setRequiredFn0Number[F[_]: Sync](value: F[Double]): Self = StObject.set(x, "requiredFn0Number", implicitly[Sync[F]].toJsFn(value))
       
-      inline def setRequiredFn0Void(value: Callback): Self = StObject.set(x, "requiredFn0Void", value.toJsFn)
+      inline def setRequiredFn0Void[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "requiredFn0Void", implicitly[Sync[F]].toJsFn(value))
       
       inline def setRequiredFn1Number(value: Double => Double): Self = StObject.set(x, "requiredFn1Number", js.Any.fromFunction1(value))
       
-      inline def setRequiredFn1Void(value: Double => Callback): Self = StObject.set(x, "requiredFn1Void", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+      inline def setRequiredFn1Void[F[_]: Sync](value: Double => F[Unit]): Self = StObject.set(x, "requiredFn1Void", js.Any.fromFunction1((t0: Double) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setText(value: Boolean): Self = StObject.set(x, "text", value.asInstanceOf[js.Any])
       
@@ -156,13 +155,13 @@ object testContainerTestContainerMod extends Shortcut {
        with /* key */ StringDictionary[js.Any]
   object TestContainerProps {
     
-    inline def apply(
-      requiredFn0Number: CallbackTo[Double],
-      requiredFn0Void: Callback,
+    inline def apply[F[_]: Sync](
+      requiredFn0Number: F[Double],
+      requiredFn0Void: F[Unit],
       requiredFn1Number: Double => Double,
-      requiredFn1Void: Double => Callback
+      requiredFn1Void: Double => F[Unit]
     ): TestContainerProps = {
-      val __obj = js.Dynamic.literal(requiredFn0Number = requiredFn0Number.toJsFn, requiredFn0Void = requiredFn0Void.toJsFn, requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
+      val __obj = js.Dynamic.literal(requiredFn0Number = implicitly[Sync[F]].toJsFn(requiredFn0Number), requiredFn0Void = implicitly[Sync[F]].toJsFn(requiredFn0Void), requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1((t0: Double) => implicitly[Sync[F]].runSync(requiredFn1Void(t0))))
       __obj.asInstanceOf[TestContainerProps]
     }
   }

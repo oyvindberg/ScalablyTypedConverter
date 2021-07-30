@@ -4,12 +4,12 @@ import mylib.internal.baz.react.anon.Children
 import mylib.internal.baz.react.anon.Html
 import mylib.internal.baz.react.reactStrings.foo
 import mylib.internal.baz.std.Partial
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.ComponentClassP
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.ComponentClassP
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
+import japgolly.scalajs.react.util.Effect.Sync
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.Instantiable1
@@ -54,12 +54,12 @@ private[internal] object mod {
     extends StObject
        with Instantiable1[
           /* props */ P, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ]
        with Instantiable2[
           /* props */ P, 
           /* context */ js.Any, 
-          japgolly.scalajs.react.raw.React.Component[P & js.Object, js.Object]
+          japgolly.scalajs.react.facade.React.Component[P & js.Object, js.Object]
         ] {
     
     var defaultProps: js.UndefOr[Partial[P]] = js.native
@@ -104,7 +104,7 @@ private[internal] object mod {
       
       inline def setOnClick(value: Double | (js.Function1[/* x */ String, Unit])): Self = StObject.set(x, "onClick", value.asInstanceOf[js.Any])
       
-      inline def setOnClickFunction1(value: /* x */ String => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: /* x */ String) => value(t0).runNow()))
+      inline def setOnClickFunction1[F[_]: Sync](value: /* x */ String => F[Unit]): Self = StObject.set(x, "onClick", js.Any.fromFunction1((t0: /* x */ String) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
     }

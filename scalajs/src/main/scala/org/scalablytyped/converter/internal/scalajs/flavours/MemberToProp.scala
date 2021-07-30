@@ -28,6 +28,7 @@ object MemberToProp {
                   asExpr        = ref => Call(Ref(QualifiedName.AnyFromFunction(paramTypes.length)), IArray(IArray(ref))),
                   isRewritten   = true,
                   extendsAnyVal = false,
+                  agnostic      = None,
                 )
                 Some(Prop.Normal(main, isInherited, optionality, Empty, f))
               }
@@ -59,6 +60,7 @@ object MemberToProp {
                         e => Call(Ref(QualifiedName.JsArray), IArray(IArray(`:_*`(e)))),
                         isRewritten   = true,
                         extendsAnyVal = false,
+                        agnostic      = None,
                       ),
                     )
                   case _ => Empty
@@ -69,6 +71,7 @@ object MemberToProp {
                 asExpr        = ref => Cast(ref, TypeRef.JsAny),
                 isRewritten   = wasRewritten,
                 extendsAnyVal = TypeRef.Primitive(FollowAliases(scope / x)(dealiased)),
+                agnostic      = None,
               )
               Some(Prop.Normal(main, isInherited, optionality, variants, f))
           }
@@ -85,6 +88,7 @@ object MemberToProp {
               asExpr        = ref => Call(Ref(QualifiedName.AnyFromFunction(flattenedParams.length)), IArray(IArray(ref))),
               isRewritten   = true,
               extendsAnyVal = false,
+              agnostic      = None,
             )
             Some(Prop.Normal(main, isInherited, Optionality.No, Empty, m))
           }

@@ -1,7 +1,7 @@
 package typingsJapgolly.componentstest.components
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalajs.dom.raw.Element
 import org.scalajs.dom.raw.HTMLDivElement
 import typingsJapgolly.StBuildingComponent
@@ -33,7 +33,7 @@ object Card {
     extends AnyVal
        with StBuildingComponent[js.Object] {
     
-    inline def onClick(value: ReactMouseEventFrom[HTMLDivElement & Element] => Callback): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => value(t0).runNow()))
+    inline def onClick[F[_]: Sync](value: ReactMouseEventFrom[HTMLDivElement & Element] => F[Unit]): this.type = set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLDivElement & Element]) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def prefixCls(value: String): this.type = set("prefixCls", value.asInstanceOf[js.Any])
   }

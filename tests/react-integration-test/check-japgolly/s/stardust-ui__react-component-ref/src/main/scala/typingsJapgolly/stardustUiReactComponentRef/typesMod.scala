@@ -1,7 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentRef
 
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.util.Effect.Sync
 import japgolly.scalajs.react.vdom.VdomElement
 import typingsJapgolly.react.mod.Ref
 import org.scalablytyped.runtime.StObject
@@ -38,7 +38,7 @@ object typesMod {
       
       inline def setInnerRef(value: Ref[js.Any]): Self = StObject.set(x, "innerRef", value.asInstanceOf[js.Any])
       
-      inline def setInnerRefFunction1(value: /* instance */ js.Any | Null => Callback): Self = StObject.set(x, "innerRef", js.Any.fromFunction1((t0: /* instance */ js.Any | Null) => value(t0).runNow()))
+      inline def setInnerRefFunction1[F[_]: Sync](value: /* instance */ js.Any | Null => F[Unit]): Self = StObject.set(x, "innerRef", js.Any.fromFunction1((t0: /* instance */ js.Any | Null) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setInnerRefNull: Self = StObject.set(x, "innerRef", null)
     }

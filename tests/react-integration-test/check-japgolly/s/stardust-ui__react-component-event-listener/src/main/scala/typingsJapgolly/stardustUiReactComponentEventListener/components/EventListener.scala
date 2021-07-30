@@ -1,7 +1,7 @@
 package typingsJapgolly.stardustUiReactComponentEventListener.components
 
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
+import japgolly.scalajs.react.util.Effect.Sync
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventListenerOptions
 import typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes
@@ -11,14 +11,14 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 
 object EventListener {
   
-  inline def apply[T /* <: EventTypes */](
-    listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback,
+  inline def apply[F[_]: Sync, T /* <: EventTypes */](
+    listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => F[Unit],
     targetRef: RefHandle[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
     ],
     `type`: T
   ): Builder[T] = {
-    val __props = js.Dynamic.literal(listener = js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => listener(t0).runNow()), targetRef = targetRef.asInstanceOf[js.Any])
+    val __props = js.Dynamic.literal(listener = js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => implicitly[Sync[F]].runSync(listener(t0))), targetRef = targetRef.asInstanceOf[js.Any])
     __props.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     new Builder[T](js.Array(this.component, __props.asInstanceOf[EventListenerOptions[T]]))
   }

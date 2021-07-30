@@ -72,6 +72,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
                 IArray.fromOptions(
                   Some(generateCreator(Name.APPLY, cm, cls.codePath, cls.tparams))
                     .filter(_.params.nonEmpty)
+                    .map(EffectAgnostic.patch(props))
                     .filter(ensureNotTooManyStrings(scope)),
                 )
 
@@ -85,6 +86,7 @@ final class GenCompanions(findProps: FindProps, enableLongApplyMethod: Boolean) 
 
                     Some(generateCreator(propsRef.name, cm, propsRef.typeName, tparams))
                       .filter(_.params.nonEmpty)
+                      .map(EffectAgnostic.patch(props))
                       .filter(ensureNotTooManyStrings(scope))
                 }
             }

@@ -10,6 +10,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.GenBuilderClass.Ava
 object JapgollyGenComponents {
 
   final case class SplitProps(refTypes: IArray[TypeRef], propsInApply: IArray[Prop], propsInBuilder: IArray[Prop]) {
+    val all              = propsInApply ++ propsInBuilder
     val hasRequiredProps = propsInApply.exists(_.isRequired) || propsInBuilder.exists(_.isRequired)
   }
 
@@ -47,7 +48,8 @@ object JapgollyGenComponents {
     val (refTypes: IArray[TypeRef], _, filteredProps: IArray[Prop]) = allProps.partitionCollect2(
       //refTypes
       {
-        case Prop.Normal(Prop.Variant(Ref(ref), _, _, _), _, _, _, FieldTree(_, _, names.ref, _, _, _, _, _, _)) => ref
+        case Prop.Normal(Prop.Variant(Ref(ref), _, _, _, _), _, _, _, FieldTree(_, _, names.ref, _, _, _, _, _, _)) =>
+          ref
       },
       // ignored
       {
@@ -469,18 +471,20 @@ class JapgollyGenComponents(
       }
 
       Some(
-        MethodTree(
-          annotations = IArray(Annotation.Inline),
-          level       = ProtectionLevel.Public,
-          name        = name,
-          tparams     = tparams,
-          params      = IArray(cm.params),
-          impl        = impl,
-          resultType  = builderRef,
-          isOverride  = false,
-          comments    = NoComments,
-          codePath    = ownerCp + name,
-          isImplicit  = false,
+        EffectAgnostic.patch(splitProps.propsInApply)(
+          MethodTree(
+            annotations = IArray(Annotation.Inline),
+            level       = ProtectionLevel.Public,
+            name        = name,
+            tparams     = tparams,
+            params      = IArray(cm.params),
+            impl        = impl,
+            resultType  = builderRef,
+            isOverride  = false,
+            comments    = NoComments,
+            codePath    = ownerCp + name,
+            isImplicit  = false,
+          ),
         ),
       )
     }
@@ -664,24 +668,27 @@ class JapgollyGenComponents(
           }
 
           val variantsMethods: IArray[MethodTree] = variantsForProp.mapToIArray {
-            case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
+            case (methodName, Prop.Variant(tpe, asExpr, _, _, maybeAgnostic)) =>
               val param = ParamTree(Name("value"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
               val impl = Call(
                 Ref(genStBuilder.set.name),
                 IArray(IArray(StringLit(prop.originalName.unescaped), asExpr(Ref(param.name)))),
               )
-              MethodTree(
-                annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Public,
-                name        = methodName,
-                tparams     = Empty,
-                params      = IArray(IArray(param)),
-                impl        = impl,
-                resultType  = TypeRef.ThisType(NoComments),
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + methodName,
-                isImplicit  = false,
+
+              EffectAgnostic.patch(maybeAgnostic)(
+                MethodTree(
+                  annotations = IArray(Annotation.Inline),
+                  level       = ProtectionLevel.Public,
+                  name        = methodName,
+                  tparams     = Empty,
+                  params      = IArray(IArray(param)),
+                  impl        = impl,
+                  resultType  = TypeRef.ThisType(NoComments),
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = clsCodePath + methodName,
+                  isImplicit  = false,
+                ),
               )
           }
 

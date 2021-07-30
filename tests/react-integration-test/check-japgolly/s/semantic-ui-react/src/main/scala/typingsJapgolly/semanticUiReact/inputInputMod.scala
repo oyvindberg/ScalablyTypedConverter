@@ -1,11 +1,11 @@
 package typingsJapgolly.semanticUiReact
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactEventFrom
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
+import japgolly.scalajs.react.util.Effect.Sync
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.raw.HTMLInputElement
 import typingsJapgolly.react.mod.Component
@@ -231,7 +231,7 @@ object inputInputMod {
       
       inline def setLoadingUndefined: Self = StObject.set(x, "loading", js.undefined)
       
-      inline def setOnChange(value: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => (value(t0, t1)).runNow()))
+      inline def setOnChange[F[_]: Sync](value: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => F[Unit]): Self = StObject.set(x, "onChange", js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => implicitly[Sync[F]].runSync(value(t0, t1))))
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       

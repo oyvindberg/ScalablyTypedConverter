@@ -1,7 +1,7 @@
 package typingsJapgolly.semanticUiReact.components
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalajs.dom.raw.HTMLDivElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
@@ -78,9 +78,9 @@ object Accordion {
     
     inline def inverted(value: Boolean): this.type = set("inverted", value.asInstanceOf[js.Any])
     
-    inline def onTitleClick(
-      value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ): this.type = set("onTitleClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
+    inline def onTitleClick[F[_]: Sync](
+      value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => F[Unit]
+    ): this.type = set("onTitleClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => implicitly[Sync[F]].runSync(value(t0, t1))))
     
     inline def panels(value: SemanticShorthandCollection[AccordionPanelProps]): this.type = set("panels", value.asInstanceOf[js.Any])
     

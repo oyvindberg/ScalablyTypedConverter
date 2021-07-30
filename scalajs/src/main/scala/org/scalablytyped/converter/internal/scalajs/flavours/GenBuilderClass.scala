@@ -30,6 +30,7 @@ object GenBuilderClass {
       val selfTParam = TypeParamTree(
         name        = SelfName,
         params      = Empty,
+        typeBound   = None,
         upperBound  = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
         comments    = NoComments,
         ignoreBound = false,
@@ -56,24 +57,27 @@ object GenBuilderClass {
           }
 
           val variantsMethods: IArray[MethodTree] = variantsForProp.mapToIArray {
-            case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
+            case (methodName, Prop.Variant(tpe, asExpr, _, _, maybeAgnostic)) =>
               val impl = Call(
                 globalSet,
                 IArray(IArray(Ref(x), StringLit(prop.originalName.unescaped), asExpr(Ref(value)))),
               )
               val valueParam = ParamTree(value, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
-              MethodTree(
-                annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Public,
-                name        = methodName,
-                tparams     = Empty,
-                params      = IArray(IArray(valueParam)),
-                impl        = impl,
-                resultType  = selfRef,
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + methodName,
-                isImplicit  = false,
+
+              EffectAgnostic.patch(maybeAgnostic)(
+                MethodTree(
+                  annotations = IArray(Annotation.Inline),
+                  level       = ProtectionLevel.Public,
+                  name        = methodName,
+                  tparams     = Empty,
+                  params      = IArray(IArray(valueParam)),
+                  impl        = impl,
+                  resultType  = selfRef,
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = clsCodePath + methodName,
+                  isImplicit  = false,
+                ),
               )
           }
 

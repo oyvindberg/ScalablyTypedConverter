@@ -1,7 +1,7 @@
 package typingsJapgolly.reactContextmenu.components
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.StBuildingComponent
 import typingsJapgolly.reactContextmenu.mod.ContextMenuProps
@@ -31,7 +31,7 @@ object ContextMenu {
     
     inline def hideOnLeave(value: Boolean): this.type = set("hideOnLeave", value.asInstanceOf[js.Any])
     
-    inline def onHide(value: /* event */ js.Any => Callback): this.type = set("onHide", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+    inline def onHide[F[_]: Sync](value: /* event */ js.Any => F[Unit]): this.type = set("onHide", js.Any.fromFunction1((t0: /* event */ js.Any) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def onMouseLeave(
       value: (js.Function3[
@@ -42,11 +42,11 @@ object ContextMenu {
         ]) | js.Function
     ): this.type = set("onMouseLeave", value.asInstanceOf[js.Any])
     
-    inline def onMouseLeaveFunction3(
-      value: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
-    ): this.type = set("onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => (value(t0, t1, t2)).runNow()))
+    inline def onMouseLeaveFunction3[F[_]: Sync](
+      value: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => F[Unit]
+    ): this.type = set("onMouseLeave", js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => implicitly[Sync[F]].runSync(value(t0, t1, t2))))
     
-    inline def onShow(value: /* event */ js.Any => Callback): this.type = set("onShow", js.Any.fromFunction1((t0: /* event */ js.Any) => value(t0).runNow()))
+    inline def onShow[F[_]: Sync](value: /* event */ js.Any => F[Unit]): this.type = set("onShow", js.Any.fromFunction1((t0: /* event */ js.Any) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }

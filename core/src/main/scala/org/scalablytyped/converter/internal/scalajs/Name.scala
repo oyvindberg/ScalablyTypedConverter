@@ -70,6 +70,7 @@ object Name {
   val THIS:            Name = Name("<this>")
   val SUPER:           Name = Name("<super>")
   val WILDCARD:        Name = Name("<wildcard>")
+  val WILDCARD_KIND:   Name = Name("<higher_kinded>")
   val UNDEFINED:       Name = Name("<undefined>")
   val REPEATED:        Name = Name("*")
 
@@ -89,6 +90,7 @@ object Name {
     REPEATED,
     APPLY,
     UNDEFINED,
+    WILDCARD_KIND,
   )
 
   implicit val NameSuffix: ToSuffix[Name] = {

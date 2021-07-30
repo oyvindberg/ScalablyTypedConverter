@@ -1,6 +1,6 @@
 package typingsJapgolly.react.mod
 
-import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalablytyped.runtime.StObject
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, JSBracketAccess}
@@ -22,7 +22,7 @@ object ClassAttributes {
     
     inline def setRef(value: LegacyRef[T]): Self = StObject.set(x, "ref", value.asInstanceOf[js.Any])
     
-    inline def setRefFunction1(value: /* instance */ T | Null => Callback): Self = StObject.set(x, "ref", js.Any.fromFunction1((t0: /* instance */ T | Null) => value(t0).runNow()))
+    inline def setRefFunction1[F[_]: Sync](value: /* instance */ T | Null => F[Unit]): Self = StObject.set(x, "ref", js.Any.fromFunction1((t0: /* instance */ T | Null) => implicitly[Sync[F]].runSync(value(t0))))
     
     inline def setRefNull: Self = StObject.set(x, "ref", null)
     

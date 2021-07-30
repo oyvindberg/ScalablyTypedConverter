@@ -1,6 +1,6 @@
 package typingsJapgolly.reactBootstrap
 
-import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.util.Effect.Sync
 import typingsJapgolly.react.mod.Component
 import typingsJapgolly.react.mod.HTMLProps
 import typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps
@@ -77,7 +77,7 @@ object toggleButtonGroupMod {
       
       inline def setNameUndefined: Self = StObject.set(x, "name", js.undefined)
       
-      inline def setOnChange(value: /* values */ js.Array[js.Any] => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: /* values */ js.Array[js.Any]) => value(t0).runNow()))
+      inline def setOnChange[F[_]: Sync](value: /* values */ js.Array[js.Any] => F[Unit]): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: /* values */ js.Array[js.Any]) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       
@@ -106,7 +106,7 @@ object toggleButtonGroupMod {
       
       inline def setName(value: String): Self = StObject.set(x, "name", value.asInstanceOf[js.Any])
       
-      inline def setOnChange(value: /* value */ js.Any => Callback): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: /* value */ js.Any) => value(t0).runNow()))
+      inline def setOnChange[F[_]: Sync](value: /* value */ js.Any => F[Unit]): Self = StObject.set(x, "onChange", js.Any.fromFunction1((t0: /* value */ js.Any) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnChangeUndefined: Self = StObject.set(x, "onChange", js.undefined)
       

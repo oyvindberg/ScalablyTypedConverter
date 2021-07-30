@@ -82,7 +82,7 @@ object Ci {
               )
             else if (flags.contains("-flavourJapgolly"))
               (
-                Flavour.Japgolly,
+                Flavour.ScalajsReact,
                 Name("typingsJapgolly"),
                 ProjectName("ScalajsReactTyped"),
                 new URI("https://github.com/ScalablyTyped/ScalajsReactTyped.git"),
@@ -117,6 +117,7 @@ object Ci {
                 enableReactTreeShaking = Selection.None,
                 enableLongApplyMethod  = false,
                 privateWithin          = None,
+                effectAgnostic         = flags contains "-effectAgnostic",
               ),
               wantedLibs       = wantedLibNames,
               offline          = flags contains "-offline",

@@ -42,7 +42,13 @@ object Prop {
     *                    Typically we filter out variants which has not been rewritten
     * @param extendsAnyVal if `tpe` is an `AnyVal` we need to make sure it's not assigned a value of `null`
     */
-  case class Variant(tpe: TypeRef, asExpr: ExprTree => ExprTree, isRewritten: Boolean, extendsAnyVal: Boolean)
+  case class Variant(
+      tpe:           TypeRef,
+      asExpr:        ExprTree => ExprTree,
+      isRewritten:   Boolean,
+      extendsAnyVal: Boolean,
+      agnostic:      Option[EffectAgnostic],
+  )
 
   /**
     * If a type/component has too many props to fit within Javascripts 254 parameter limit, we group everything

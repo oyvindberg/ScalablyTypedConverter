@@ -10,10 +10,11 @@ case class JapgollyFlavour(
     enableLongApplyMethod:  Boolean,
     versions:               Versions,
     enableReactTreeShaking: Selection[Name],
+    effectAgnostic:         Boolean,
 ) extends FlavourImplReact {
   override val rewrites      = JapgollyTypeConversions(reactNames, scalaJsDomNames)
   override val dependencies  = Set(versions.runtime, versions.scalajsReact)
-  val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites)
+  val memberToPro            = new JapgollyMemberToProp(reactNamesProxy, rewrites, effectAgnostic)
   val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToPro, parentsResolver)
   val genStBuildingComponent = new JapgollyGenStBuildingComponent(outputPkg, versions.scala)
   val genComponents =

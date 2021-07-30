@@ -1,9 +1,9 @@
 package typingsJapgolly.reactDropzone
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.ReactEventFrom
-import japgolly.scalajs.react.raw.React.RefHandle
+import japgolly.scalajs.react.facade.React.RefHandle
+import japgolly.scalajs.react.util.Effect.Sync
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.DragEvent
 import org.scalajs.dom.raw.Event
@@ -176,53 +176,53 @@ object mod {
       
       inline def setNoKeyboardUndefined: Self = StObject.set(x, "noKeyboard", js.undefined)
       
-      inline def setOnDragEnter(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragEnter[F[_]: Sync](value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => F[Unit]): Self = StObject.set(x, "onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnDragEnterUndefined: Self = StObject.set(x, "onDragEnter", js.undefined)
       
-      inline def setOnDragLeave(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragLeave[F[_]: Sync](value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => F[Unit]): Self = StObject.set(x, "onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnDragLeaveUndefined: Self = StObject.set(x, "onDragLeave", js.undefined)
       
-      inline def setOnDragOver(value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => Callback): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => value(t0).runNow()))
+      inline def setOnDragOver[F[_]: Sync](value: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element] => F[Unit]): Self = StObject.set(x, "onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[HTMLElement & org.scalajs.dom.raw.Element]) => implicitly[Sync[F]].runSync(value(t0))))
       
       inline def setOnDragOverUndefined: Self = StObject.set(x, "onDragOver", js.undefined)
       
-      inline def setOnDrop(
+      inline def setOnDrop[F[_]: Sync](
         value: (/* acceptedFiles */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], /* rejectedFiles */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], /* event */ DropEvent) => Callback
+            ], /* event */ DropEvent) => F[Unit]
       ): Self = StObject.set(x, "onDrop", js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
             ], t1: /* rejectedFiles */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
+            ], t2: /* event */ DropEvent) => implicitly[Sync[F]].runSync(value(t0, t1, t2))))
       
-      inline def setOnDropAccepted(
+      inline def setOnDropAccepted[F[_]: Sync](
         value: (/* files */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], /* event */ DropEvent) => Callback
+            ], /* event */ DropEvent) => F[Unit]
       ): Self = StObject.set(x, "onDropAccepted", js.Any.fromFunction2((t0: /* files */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+            ], t1: /* event */ DropEvent) => implicitly[Sync[F]].runSync(value(t0, t1))))
       
       inline def setOnDropAcceptedUndefined: Self = StObject.set(x, "onDropAccepted", js.undefined)
       
-      inline def setOnDropRejected(
+      inline def setOnDropRejected[F[_]: Sync](
         value: (/* files */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], /* event */ DropEvent) => Callback
+            ], /* event */ DropEvent) => F[Unit]
       ): Self = StObject.set(x, "onDropRejected", js.Any.fromFunction2((t0: /* files */ js.Array[
               /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ js.Any
-            ], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
+            ], t1: /* event */ DropEvent) => implicitly[Sync[F]].runSync(value(t0, t1))))
       
       inline def setOnDropRejectedUndefined: Self = StObject.set(x, "onDropRejected", js.undefined)
       
       inline def setOnDropUndefined: Self = StObject.set(x, "onDrop", js.undefined)
       
-      inline def setOnFileDialogCancel(value: Callback): Self = StObject.set(x, "onFileDialogCancel", value.toJsFn)
+      inline def setOnFileDialogCancel[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "onFileDialogCancel", implicitly[Sync[F]].toJsFn(value))
       
       inline def setOnFileDialogCancelUndefined: Self = StObject.set(x, "onFileDialogCancel", js.undefined)
       
@@ -259,14 +259,14 @@ object mod {
   }
   object DropzoneRef {
     
-    inline def apply(open: Callback): DropzoneRef = {
-      val __obj = js.Dynamic.literal(open = open.toJsFn)
+    inline def apply[F[_]: Sync](open: F[Unit]): DropzoneRef = {
+      val __obj = js.Dynamic.literal(open = implicitly[Sync[F]].toJsFn(open))
       __obj.asInstanceOf[DropzoneRef]
     }
     
     extension [Self <: DropzoneRef](x: Self) {
       
-      inline def setOpen(value: Callback): Self = StObject.set(x, "open", value.toJsFn)
+      inline def setOpen[F[_]: Sync](value: F[Unit]): Self = StObject.set(x, "open", implicitly[Sync[F]].toJsFn(value))
     }
   }
   

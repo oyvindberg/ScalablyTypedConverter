@@ -1,11 +1,11 @@
 package typingsJapgolly.semanticUiReact
 
-import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.raw.Empty
-import japgolly.scalajs.react.raw.JsNumber
-import japgolly.scalajs.react.raw.React.Element
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.facade.Empty
+import japgolly.scalajs.react.facade.JsNumber
+import japgolly.scalajs.react.facade.React.Element
+import japgolly.scalajs.react.facade.React.Node
+import japgolly.scalajs.react.util.Effect.Sync
 import japgolly.scalajs.react.vdom.VdomElement
 import org.scalajs.dom.raw.HTMLButtonElement
 import typingsJapgolly.react.mod.ButtonHTMLAttributes
@@ -280,7 +280,7 @@ object buttonMod {
       
       inline def setNegativeUndefined: Self = StObject.set(x, "negative", js.undefined)
       
-      inline def setOnClick(value: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => Callback): Self = StObject.set(x, "onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLButtonElement], t1: /* data */ ButtonProps) => (value(t0, t1)).runNow()))
+      inline def setOnClick[F[_]: Sync](value: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => F[Unit]): Self = StObject.set(x, "onClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLButtonElement], t1: /* data */ ButtonProps) => implicitly[Sync[F]].runSync(value(t0, t1))))
       
       inline def setOnClickUndefined: Self = StObject.set(x, "onClick", js.undefined)
       

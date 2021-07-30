@@ -57,6 +57,7 @@ object IArray {
     if (length == 0) Empty else new IArray[A](as, length)
 
   val Empty = new IArray(Array.ofDim(0), 0)
+  def empty[T <: AnyRef]: IArray[T] = Empty
 
   object first {
     def unapply[A <: AnyRef](as: IArray[A]): Option[A] = as.headOption

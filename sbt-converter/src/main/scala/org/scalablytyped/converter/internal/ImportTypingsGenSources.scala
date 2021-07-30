@@ -168,6 +168,7 @@ object ImportTypingsGenSources {
       enableReactTreeShaking = Selection.None,
       enableLongApplyMethod  = false,
       privateWithin          = None,
+      effectAgnostic         = false,
     )
 
     println(
